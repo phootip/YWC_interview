@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import './index.css';
 
 class Table extends React.Component {
@@ -9,33 +8,56 @@ class Table extends React.Component {
     this.state = { 
       name: 'loading',
       data: [
-        {firstName:'load',interviewRef:'ding'},
-        {firstName:'load',interviewRef:'ding'},
-        {firstName:'load',interviewRef:'ding'},
+        // {firstName:'load',interviewRef:'ding'},
+        // {firstName:'load',interviewRef:'ding'},
+        // {firstName:'load',interviewRef:'ding'},
       ]
     }
+
+    // Get API
     fetch('https://ywc15.ywc.in.th/api/interview')
     .then((response) => {
       return response.json()
     }).then((json) => {
-      console.log(json[0]['firstName']);
-      this.setState({name:json[0]['firstName']});
       this.setState({data:json});
     }).catch((ex) =>  {
       console.log('parsing failed', ex)
     })
   }
 
-  render(){
-    var data = [];
-    for(var i=0;i<5;i++){
-      this.state.data[i];
+  count(){
+    var c = this.state.data.length;
+    console.log(c);
+    if(c > 0){
+      var d = Object.keys(this.state.data[0]);
+      console.log(d);
+      console.log(d.length);
     }
+    return c;
+  }
 
+  createRow(){
+    var data = this.state.data;
+    // var result =  [];
+    // for(var i=0;i<data.length;i++){
+
+    // }
+    var listRow = data.map((i) => 
+      <tr>
+        <td> {i.firstName} </td>
+        <td> {i.lastName} </td>
+        <td> {i.major} </td>
+        <td> {i.interviewRef} </td>
+      </tr>
+  );
+    return listRow;
+  }
+  
+  render(){
     return(
       <div>
         <h1> This is a table we will be using</h1>
-        <h3> example of getting data :{this.state.data[0]['interviewRef']} </h3>
+        {this.count()}
         <table className="table">
           <thead>
             <tr>
@@ -46,13 +68,9 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <Row />
-            <tr>
-              <td> {this.state.data[2]['firstName']} </td>
-              <td> {this.state.data[2]['lastName']} </td>
-              <td> {this.state.data[2]['major']} </td>
-              <td> {this.state.data[2]['interviewRef']} </td>
-            </tr>
+            {/* Creat Row Here <Row value={data[0]} />*/}
+            {this.createRow()}
+            
           </tbody>
         </table>
       </div>
@@ -62,8 +80,14 @@ class Table extends React.Component {
 
 class Row extends React.Component {
   render(){
+    console.log(this.props.value);
     return(
-      <div>hello</div>
+      <tr>
+        <td> {this.props.value["firstName"]} </td>
+        <td> 2 </td>
+        <td> 3 </td>
+        <td> 4 </td>
+      </tr>
     );
   }
 }
@@ -71,8 +95,4 @@ class Row extends React.Component {
 ReactDOM.render(
   <Table />,
   document.getElementById('table')
-);
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
 );
