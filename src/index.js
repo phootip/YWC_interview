@@ -28,8 +28,8 @@ class Table extends React.Component {
   constructor(){
     super();
     this.state = { 
-      // data: myjson,
-      data:[],
+      data: myjson,
+      // data:[],
       suggestion: [],
       active : 'CT',
       sortOrder : 0,
@@ -38,19 +38,19 @@ class Table extends React.Component {
     this.editTable = this.editTable.bind(this);
 
     // Get API
-    fetch('https://ywc15.ywc.in.th/api/interview')
-    .then((response) => {
-      return response.json()
-    }).then((json) => {
-      this.setState({data:json});
-      // update outside would be too fast
-      data = this.state.data;
-    }).catch((ex) =>  {
-      console.log('parsing failed', ex)
-    })
+    // fetch('https://ywc15.ywc.in.th/api/interview')
+    // .then((response) => {
+    //   return response.json()
+    // }).then((json) => {
+    //   this.setState({data:json});
+    //   // update outside would be too fast
+    //   data = this.state.data;
+    // }).catch((ex) =>  {
+    //   console.log('parsing failed', ex)
+    // })
 
     // // update data for autoSuggestion
-    // data = this.state.data;
+    data = this.state.data;
   }
 
   createRow(){
