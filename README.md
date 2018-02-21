@@ -2,4 +2,4 @@
 
 `npm install`
 
-let's hope it will work
+let's hope this will work
